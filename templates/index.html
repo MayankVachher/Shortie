@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<title>Shortie</title>
+		<link rel="stylesheet" href="/static/flatstrap.css">
+		<link rel="stylesheet" href="/static/flatstrap-theme.css">
+		<link rel="stylesheet" type="text/css" href="/static/style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="outer">
+				<div class="inner">
+					<div class="content">
+						<!-- <small class="text-muted">Search Query:</small> -->
+						<form action = '/' class="form-inline" method="POST">
+							<fieldset class="form-group">
+								<input type="text" class="form-control" id="VaCla1" placeholder="Enter Search Query" name="query">
+							</fieldset>
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</form>
+						<small class="text-muted">Result:</small>
+						<div class="res">
+						<p><b>Input: </b><span>{{ quer }}</span></p>
+						<p><b>Base64Encoding: </b><span>{{ val }}</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
