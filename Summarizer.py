@@ -17,6 +17,9 @@ def summarizeArticle():
 	newsArticle = readTextFromFile("./result.txt")
 	#print newsArticle
 
+	queryAndTitlesofTopRelevantDocs = readTextFromFile("./summary.txt")
+	title = queryAndTitlesofTopRelevantDocs.split('\n')[0]
+
 	#sentences = sent_tokenize(newsArticle)
 	#title = sentences[0]
 	#title = newsArticle.split('\n')[0]
@@ -25,14 +28,21 @@ def summarizeArticle():
 	wordFrequencies = computeWordFrequencies(newsArticle)
 	#printDictionarySorted(wordFrequencies)
 
-	topNSentences = rankSentencesAndReturnTopN(newsArticle, wordFrequencies, 5)
+	#also pass no. of sentences required
+	topNSentences = rankSentencesAndReturnTopN(newsArticle, wordFrequencies, 10)
 	printSentences(topNSentences)
 	
-	createOutputFile("hello", topNSentences)
+	createOutputFile(title, topNSentences)
 	
 def createOutputFile(title, topNSentences):
 	f = open('pptDetails.txt', 'w')
-	f.write("testing")
+	#f.write("testing")
+
+	keyPoints=""
+	for sentence in topNSentences:
+		keyPoints = keyPoints + sentence + "/"
+
+	f.write(title+","keyPoints)
 	f.close()
 
 def printSentences(topNSentences):
