@@ -21,6 +21,9 @@
 						<div class="res">
 						<p><b>Input: </b><span>{{ quer }}</span></p>
 						<p><b>Base64Encoding: </b><span>{{ val }}</span></p>
+						<form action="data" method="post">
+							<input id="ppt" type="submit" name="submit" class="btn btn-primary" disabled="disabled" value="Download PPT" >
+						</form>
 						</div>
 					</div>
 				</div>
@@ -28,3 +31,12 @@
 		</div>
 	</body>
 </html>
+
+<script type="text/javascript">
+	var value = "{{ ppt_ready }}"
+	if(value==1){
+		document.getElementById("ppt").disabled = false;
+	}
+	
+
+</script>
