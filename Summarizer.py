@@ -35,7 +35,7 @@ def summarizeArticle():
 	createOutputFile(title, topNSentences)
 	
 def createOutputFile(title, topNSentences):
-	f = open('pptDetails.txt', 'w')
+	f = open('content.csv', 'w')
 	#f.write("testing")
 
 	keyPoints=""
