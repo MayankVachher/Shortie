@@ -14,13 +14,13 @@ nltk.download('punkt')
 
 
 #function to be called
-def summarizeArticle():
+def summarizeArticle(query):
 	newsArticle = readTextFromFile("./result.txt")
 	#print newsArticle
 
 	queryAndTitlesofTopRelevantDocs = readTextFromFile("./summary.txt")
 	titleList = queryAndTitlesofTopRelevantDocs.split('\n')
-	title = queryAndTitlesofTopRelevantDocs.split('\n')[0]
+	#title = queryAndTitlesofTopRelevantDocs.split('\n')[0]
 
 	#creating a / delimited string for the 5 titles 
 	titlesofTopDocs = ""
@@ -42,7 +42,7 @@ def summarizeArticle():
 	topNSentences = rankSentencesAndReturnTopN(newsArticle, wordFrequencies, 10)
 	#printSentences(topNSentences)
 	
-	createOutputFile(title, topNSentences, titlesofTopDocs)
+	createOutputFile(query, topNSentences, titlesofTopDocs)
 
 def createOutputFile(title, topNSentences, titlesofTopDocs):
 	f = open('content.csv', 'w')
