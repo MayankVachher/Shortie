@@ -56,6 +56,6 @@ class FileRetriever:
 
 def start_process(query):
 	shortie = FileRetriever('./corpus')
-	print shortie.search(query, 2)
-	shortie.retrieveFile(query, 2)
+	print shortie.search(query, 5)
+	shortie.retrieveFile(query, 5)
 	summarizeArticle()

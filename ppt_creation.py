@@ -13,7 +13,7 @@ from pptx.util import Inches
 import csv
 from pptx.enum.text import MSO_ANCHOR, MSO_AUTO_SIZE
 from pptx.util import Pt
-# import functionsGoHere
+from functionsGoHere import *
 
 def pptCreator():
 	row=[]
@@ -26,6 +26,7 @@ def pptCreator():
 			# introduction_csv=row[2]
 			print row
 			points_csv=row[1].split('/')
+			articlesTitle_csv= row[2].split('/')
 		
 			# conclusion_csv=row[4]
 			# references_csv=row[5].split('/')
@@ -65,6 +66,25 @@ def pptCreator():
 
 	# p= tf.add_paragraph()
 	# p.text = introduction_csv#DATA
+
+
+	# #slide 2--------Index
+	heading_slide_layout = prs.slide_layouts[1]
+	slide = prs.slides.add_slide(heading_slide_layout)
+	slide_title= slide.placeholders[0]
+	slide_title_name ="Index"
+	slide_title.text = slide_title_name
+
+	shapes = slide.shapes
+
+	body_shape = shapes.placeholders[1]
+	tf = body_shape.text_frame
+
+	for i in range(0,len(articlesTitle_csv)):
+	
+
+			p = tf.add_paragraph()
+			p.text =articlesTitle_csv[i]#DATA
 
 	#slide 3-------- Major points
 	count=0

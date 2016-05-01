@@ -24,12 +24,11 @@ def hello_world():
 def data():
     if request.method == 'POST':
 		if request.form['submit'] == 'Download PPT':
-			# si="""title"""
-			# output = make_response(si)
-			# output.headers["Content-Disposition"] = "attachment; filename=title.ppt"
-			# output.headers["Content-type"] = "application/vnd.ms-powerpoint ppt"
-			# return output
-			return app.send_static_file('title.ppt')
+			si="""title"""
+			output = make_response(si)
+			output.headers["Content-Disposition"] = "attachment; filename=title.ppt"
+			output.headers["Content-type"] = "application/vnd.ms-powerpoint ppt"
+			return output
 
 if __name__ == '__main__':
     app.run(debug=True)

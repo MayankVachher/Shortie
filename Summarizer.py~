@@ -8,6 +8,7 @@ from nltk.tokenize import sent_tokenize,word_tokenize
 from collections import defaultdict
 from string import punctuation
 from heapq import nlargest
+import re
 
 nltk.download('punkt')
 
@@ -17,6 +18,18 @@ def summarizeArticle():
 	newsArticle = readTextFromFile("./result.txt")
 	#print newsArticle
 
+	queryAndTitlesofTopRelevantDocs = readTextFromFile("./summary.txt")
+	titleList = queryAndTitlesofTopRelevantDocs.split('\n')
+	title = queryAndTitlesofTopRelevantDocs.split('\n')[0]
+
+	#creating a / delimited string for the 5 titles 
+	titlesofTopDocs = ""
+	for i in range(4,13,2):
+		d = titleList[i].split('\n')
+		titlesofTopDocs = titlesofTopDocs + (d[-1].decode("utf8")).replace(',','') + "/"
+	#print titlesofTopDocs
+
+
 	#sentences = sent_tokenize(newsArticle)
 	#title = sentences[0]
 	#title = newsArticle.split('\n')[0]
@@ -25,14 +38,24 @@ def summarizeArticle():
 	wordFrequencies = computeWordFrequencies(newsArticle)
 	#printDictionarySorted(wordFrequencies)
 
-	topNSentences = rankSentencesAndReturnTopN(newsArticle, wordFrequencies, 5)
-	printSentences(topNSentences)
+	#also pass no. of sentences required
+	topNSentences = rankSentencesAndReturnTopN(newsArticle, wordFrequencies, 10)
+	#printSentences(topNSentences)
 	
-	createOutputFile("hello", topNSentences
-	
-def createOutputFile(title, topNSentences):
-	f = open('pptDetails.txt', 'w')
-	f.write("testing")
+	createOutputFile(title, topNSentences, titlesofTopDocs)
+
+def createOutputFile(title, topNSentences, titlesofTopDocs):
+	f = open('content.csv', 'w')
+	d=[]
+	#f.write("testing")
+	# print topNSentences
+	keyPoints=""
+	for sentence in topNSentences:
+		d=sentence.split('\n')
+		keyPoints = keyPoints + (d[-1].decode("utf8")).replace(',','') + "/"
+		# print keyPoints
+
+	f.write(title+","+keyPoints+","+titlesofTopDocs)
 	f.close()
 
 def printSentences(topNSentences):
@@ -113,4 +136,7 @@ def printDictionarySorted(d):
 		count=count+1
 		print(key, d[key])
 	print(count) 
+
+# if __name__ == '__main__':
+#     summarizeArticle()
 

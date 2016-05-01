@@ -1,12 +1,11 @@
 '''
 Having a fixed format
 slide 1 : title , subtitle
-slide 2 : intro
+slide 2 : index/introduction
 slide 3 : major points
 slide 3.1 : more points
 slide 3.2: with images
 slide 4: conclusion
-slide 5 : references
 '''
 from pptx import Presentation
 from pptx.util import Inches
@@ -26,7 +25,7 @@ def pptCreator():
 			# introduction_csv=row[2]
 			print row
 			points_csv=row[1].split('/')
-			articlesTitle_csv= row[2].split('/')
+			articleTitle_csv=row[2].split('/')
 		
 			# conclusion_csv=row[4]
 			# references_csv=row[5].split('/')
@@ -67,8 +66,7 @@ def pptCreator():
 	# p= tf.add_paragraph()
 	# p.text = introduction_csv#DATA
 
-
-	# #slide 2--------Index
+	#slide 2--------Index
 	heading_slide_layout = prs.slide_layouts[1]
 	slide = prs.slides.add_slide(heading_slide_layout)
 	slide_title= slide.placeholders[0]
@@ -80,11 +78,12 @@ def pptCreator():
 	body_shape = shapes.placeholders[1]
 	tf = body_shape.text_frame
 
-	for i in range(0,len(articlesTitle_csv)):
+	for i in range(0,len(articleTitle_csv)):
 	
 
 			p = tf.add_paragraph()
-			p.text =articlesTitle_csv[i].decode("utf8")#DATA
+			p.text = articleTitle_csv[i]#DATA
+
 
 	#slide 3-------- Major points
 	count=0
@@ -128,7 +127,7 @@ def pptCreator():
 	title_slide_layout = prs.slide_layouts[0]
 	slide = prs.slides.add_slide(title_slide_layout)
 	title = slide.shapes.title
-	title.text="THANK YOU"
+	title.text="THANK YOUxxx"
 
 	# #slide 3.2-------- More point with images
 	# heading_slide_layout = prs.slide_layouts[6]
@@ -153,25 +152,8 @@ def pptCreator():
 	# p = tf.add_paragraph()
 	# p.text = conclusion_csv #DATA
 
-	# #slide 5--------References
-	# heading_slide_layout = prs.slide_layouts[1]
-	# slide = prs.slides.add_slide(heading_slide_layout)
-	# slide_title= slide.placeholders[0]
-	# slide_title_name ="References"
-	# slide_title.text = slide_title_name
-
-	# shapes = slide.shapes
-
-	# body_shape = shapes.placeholders[1]
-	# tf = body_shape.text_frame
-
-	# for i in range(0,len(references_csv)):
-	
-
-	# 		p = tf.add_paragraph()
-	# 		p.text = references_csv[i]#DATA
 
 	##slide ends
 
 	prs.save('title.pptx')
-	# setPPTReadyButton(1)
+	setPPTReadyButton(1)
