@@ -19,7 +19,15 @@ def summarizeArticle():
 	#print newsArticle
 
 	queryAndTitlesofTopRelevantDocs = readTextFromFile("./summary.txt")
+	titleList = queryAndTitlesofTopRelevantDocs.split('\n')
 	title = queryAndTitlesofTopRelevantDocs.split('\n')[0]
+
+	#creating a / delimited string for the 5 titles 
+	titlesofTopDocs = ""
+	for i in range(1,5):
+		d = titleList[i].split('\n')
+		titlesofTopDocs = titlesofTopDocs + d[-1].replace(',','') + "/"
+
 
 	#sentences = sent_tokenize(newsArticle)
 	#title = sentences[0]
@@ -33,9 +41,9 @@ def summarizeArticle():
 	topNSentences = rankSentencesAndReturnTopN(newsArticle, wordFrequencies, 10)
 	#printSentences(topNSentences)
 	
-	createOutputFile(title, topNSentences)
+	createOutputFile(title, topNSentences, titlesofTopDocs)
 
-def createOutputFile(title, topNSentences):
+def createOutputFile(title, topNSentences, titlesofTopDocs):
 	f = open('content.csv', 'w')
 	d=[]
 	#f.write("testing")
@@ -46,7 +54,7 @@ def createOutputFile(title, topNSentences):
 		keyPoints = keyPoints + d[-1].replace(',','') + "/"
 		# print keyPoints
 
-	f.write(title+","+keyPoints)
+	f.write(title+","+keyPoints+","+titlesofTopDocs)
 	f.close()
 
 def printSentences(topNSentences):
