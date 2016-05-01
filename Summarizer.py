@@ -9,28 +9,31 @@ from collections import defaultdict
 from string import punctuation
 from heapq import nlargest
 
-minCut = 0.05
-maxCut = 0.95
+nltk.download('punkt')
 
 
-
-def main():
-	summarizeArticle()
-
+#function to be called
 def summarizeArticle():
-	newsArticle = readTextFromFile("./bbcsport/athletics/023.txt")
+	newsArticle = readTextFromFile("./result.txt")
 	#print newsArticle
 
 	#sentences = sent_tokenize(newsArticle)
 	#title = sentences[0]
-	title = newsArticle.split('\n')[0]
-	print title
+	#title = newsArticle.split('\n')[0]
+	#print title
 
 	wordFrequencies = computeWordFrequencies(newsArticle)
 	#printDictionarySorted(wordFrequencies)
 
 	topNSentences = rankSentencesAndReturnTopN(newsArticle, wordFrequencies, 5)
-	#printSentences(topNSentences)
+	printSentences(topNSentences)
+	
+	createOutputFile("hello", topNSentences)
+	
+def createOutputFile(title, topNSentences):
+	f = open('pptDetails.txt', 'w')
+	f.write("testing")
+	f.close()
 
 def printSentences(topNSentences):
 	for sentence in topNSentences:
@@ -43,6 +46,9 @@ def readTextFromFile(filePath):
 	return data
 
 def computeWordFrequencies(article):
+
+	minCut = 0.05
+	maxCut = 0.95
 
 	#returns a dictionary of words and their normalized frequencies
 
@@ -108,4 +114,3 @@ def printDictionarySorted(d):
 		print(key, d[key])
 	print(count) 
 
-main()
