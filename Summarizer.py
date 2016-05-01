@@ -8,6 +8,7 @@ from nltk.tokenize import sent_tokenize,word_tokenize
 from collections import defaultdict
 from string import punctuation
 from heapq import nlargest
+import re
 
 nltk.download('punkt')
 
@@ -30,19 +31,22 @@ def summarizeArticle():
 
 	#also pass no. of sentences required
 	topNSentences = rankSentencesAndReturnTopN(newsArticle, wordFrequencies, 10)
-	printSentences(topNSentences)
+	#printSentences(topNSentences)
 	
 	createOutputFile(title, topNSentences)
-	
+
 def createOutputFile(title, topNSentences):
 	f = open('content.csv', 'w')
+	d=[]
 	#f.write("testing")
-
+	# print topNSentences
 	keyPoints=""
 	for sentence in topNSentences:
-		keyPoints = keyPoints + sentence + "/"
+		d=sentence.split('\n')
+		keyPoints = keyPoints + d[-1].replace(',','') + "/"
+		# print keyPoints
 
-	f.write(title+","keyPoints)
+	f.write(title+","+keyPoints)
 	f.close()
 
 def printSentences(topNSentences):
@@ -123,4 +127,7 @@ def printDictionarySorted(d):
 		count=count+1
 		print(key, d[key])
 	print(count) 
+
+# if __name__ == '__main__':
+#     summarizeArticle()
 

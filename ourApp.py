@@ -1,6 +1,7 @@
 from flask import *
 from functionsGoHere import *
 from FileRetriever import *
+from ppt_creation import *
 app = Flask(__name__)
 
 @app.route('/', methods=["GET","POST"])
@@ -14,6 +15,7 @@ def hello_world():
 		resp = render_template("index.html", quer=val, val=genB64here(val), ppt_ready = getPPTReadyButton())
 
 		start_process(val)
+		pptCreator()
 		
 	
 	return resp
