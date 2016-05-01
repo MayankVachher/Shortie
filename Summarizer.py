@@ -24,9 +24,10 @@ def summarizeArticle():
 
 	#creating a / delimited string for the 5 titles 
 	titlesofTopDocs = ""
-	for i in range(1,5):
+	for i in range(4,13,2):
 		d = titleList[i].split('\n')
 		titlesofTopDocs = titlesofTopDocs + d[-1].replace(',','') + "/"
+	#print titlesofTopDocs
 
 
 	#sentences = sent_tokenize(newsArticle)
