@@ -14,7 +14,7 @@ nltk.download('punkt')
 
 
 #function to be called
-def summarizeArticle(query):
+def summarizeArticle(query, numArticles):
 	newsArticle = readTextFromFile("./result.txt")
 	#print newsArticle
 
@@ -24,7 +24,7 @@ def summarizeArticle(query):
 
 	#creating a / delimited string for the 5 titles 
 	titlesofTopDocs = ""
-	for i in range(4,13,2):
+	for i in range(4,(2*(numArticles+1)+1),2):
 		d = titleList[i].split('\n')
 		titlesofTopDocs = titlesofTopDocs + d[-1].replace(',','') + "/"
 	#print titlesofTopDocs
@@ -40,6 +40,7 @@ def summarizeArticle(query):
 
 	#also pass no. of sentences required
 	topNSentences = rankSentencesAndReturnTopN(newsArticle, wordFrequencies, 10)
+
 	#printSentences(topNSentences)
 	
 	createOutputFile(query, topNSentences, titlesofTopDocs)
@@ -54,8 +55,10 @@ def createOutputFile(title, topNSentences, titlesofTopDocs):
 		d=sentence.split('\n')
 		keyPoints = keyPoints + d[-1].replace(',','') + "/"
 		# print keyPoints
-
-	f.write(title+","+keyPoints+","+titlesofTopDocs)
+	# import pdb; pdb.set_trace()
+	f.write(title)
+	f.write(","+keyPoints)
+	f.write(","+titlesofTopDocs)
 	f.close()
 
 def printSentences(topNSentences):
@@ -138,5 +141,5 @@ def printDictionarySorted(d):
 	print(count) 
 
 # if __name__ == '__main__':
-#     summarizeArticle()
+#     summarizeArticle("golden globe awards")
 

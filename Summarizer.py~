@@ -14,19 +14,19 @@ nltk.download('punkt')
 
 
 #function to be called
-def summarizeArticle():
+def summarizeArticle(query, numArticles):
 	newsArticle = readTextFromFile("./result.txt")
 	#print newsArticle
 
 	queryAndTitlesofTopRelevantDocs = readTextFromFile("./summary.txt")
 	titleList = queryAndTitlesofTopRelevantDocs.split('\n')
-	title = queryAndTitlesofTopRelevantDocs.split('\n')[0]
+	#title = queryAndTitlesofTopRelevantDocs.split('\n')[0]
 
 	#creating a / delimited string for the 5 titles 
 	titlesofTopDocs = ""
-	for i in range(4,13,2):
+	for i in range(4,(2*(numArticles+1)+1),2):
 		d = titleList[i].split('\n')
-		titlesofTopDocs = titlesofTopDocs + (d[-1].decode("utf8")).replace(',','') + "/"
+		titlesofTopDocs = titlesofTopDocs + d[-1].replace(',','') + "/"
 	#print titlesofTopDocs
 
 
@@ -40,9 +40,10 @@ def summarizeArticle():
 
 	#also pass no. of sentences required
 	topNSentences = rankSentencesAndReturnTopN(newsArticle, wordFrequencies, 10)
+
 	#printSentences(topNSentences)
 	
-	createOutputFile(title, topNSentences, titlesofTopDocs)
+	createOutputFile(query, topNSentences, titlesofTopDocs)
 
 def createOutputFile(title, topNSentences, titlesofTopDocs):
 	f = open('content.csv', 'w')
@@ -52,10 +53,12 @@ def createOutputFile(title, topNSentences, titlesofTopDocs):
 	keyPoints=""
 	for sentence in topNSentences:
 		d=sentence.split('\n')
-		keyPoints = keyPoints + (d[-1].decode("utf8")).replace(',','') + "/"
+		keyPoints = keyPoints + d[-1].replace(',','') + "/"
 		# print keyPoints
-
-	f.write(title+","+keyPoints+","+titlesofTopDocs)
+	# import pdb; pdb.set_trace()
+	f.write(title)
+	f.write(","+keyPoints)
+	f.write(","+titlesofTopDocs)
 	f.close()
 
 def printSentences(topNSentences):
@@ -138,5 +141,5 @@ def printDictionarySorted(d):
 	print(count) 
 
 # if __name__ == '__main__':
-#     summarizeArticle()
+#     summarizeArticle("golden globe awards")
 

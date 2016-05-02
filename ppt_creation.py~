@@ -24,7 +24,7 @@ def pptCreator():
 			title_csv=row[0].upper()
 			# subtitle_csv="subtitle"
 			# introduction_csv=row[2]
-			print row
+
 			points_csv=row[1].split('/')
 			articlesTitle_csv= row[2].split('/')
 		
@@ -83,8 +83,8 @@ def pptCreator():
 	for i in range(0,len(articlesTitle_csv)):
 	
 
-			p = tf.add_paragraph()
-			p.text =articlesTitle_csv[i].decode("utf8")#DATA
+		p = tf.add_paragraph()
+		p.text =articlesTitle_csv[i]#DATA
 
 	#slide 3-------- Major points
 	count=0

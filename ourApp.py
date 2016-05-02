@@ -2,6 +2,7 @@ from flask import *
 from functionsGoHere import *
 from FileRetriever import *
 from ppt_creation import *
+from allWords import *
 app = Flask(__name__)
 
 @app.route('/', methods=["GET","POST"])
@@ -13,6 +14,8 @@ def hello_world():
 	else:
 		val = request.form["query"]
 		resp = render_template("index.html", quer=val, val=genB64here(val), ppt_ready = getPPTReadyButton())
+		
+		#val_spelling = provide_correct_word(val)
 
 		start_process(val)
 		pptCreator()
@@ -31,4 +34,4 @@ def data():
 			return output
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
